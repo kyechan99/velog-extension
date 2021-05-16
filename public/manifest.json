@@ -5,8 +5,17 @@
   "description": "",
   "manifest_version": 3,
   "action": {
-    "default_popup": "index.html",
+    "default_popup": "popup.html",
     "default_title": "Velog 팔로우"
   },
-  "permissions": []
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["storage", "activeTab"],
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "js": ["content.js"]
+    }
+  ]
 }
