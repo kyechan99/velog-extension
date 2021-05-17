@@ -1,8 +1,7 @@
 // aa
 console.log("Hello from background script!")
 
-import { MESSAGE_TYPE } from "./types";
-
+import { MESSAGE_TYPE } from "./message/types";
 
 
 // 팔로우 상태를 보냄.
@@ -37,7 +36,7 @@ chrome.storage.local.get("follow", (res) => {
 });
 
 chrome.runtime.onMessage.addListener((message: MESSAGE_TYPE) => {
-
+  console.log('메세지 도착, ' , message.type);
   switch (message.type) {
     case "REQUEST_FOLLOW_STATE":
       sendFollowState(follow);
@@ -55,4 +54,14 @@ chrome.runtime.onMessage.addListener((message: MESSAGE_TYPE) => {
   }
 });
 
-export const foo = 'foo';
+// 페이지가 변경되었을때 호출됨
+// - 페이지가 완전 새로고침의 경우 contents.js 도 새로고침 되어 필요없지만
+// - velog 는 해당 경우가 아님
+chrome.webNavigation.onHistoryStateUpdated.addListener(function(details) { 
+  if(details.frameId === 0) { 
+    chrome.tabs.get(details.tabId, function(tab) { 
+      if (tab.status == 'complete')
+        chrome.tabs.sendMessage(details.tabId, { type: 'REFRESH' } );
+    }); 
+  } 
+}); 

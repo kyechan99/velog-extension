@@ -1,0 +1,31 @@
+
+.v-follow-bt {
+  width: 8rem; 
+  color: white; 
+  font-size: 1rem; 
+  margin-top: 1rem;
+  padding: .75rem .5rem; 
+  border-radius: .25rem; 
+  border: 1px solid #20c997;
+  cursor: pointer;
+
+  /* 팔로우 중인 상태 */
+  &.following {
+    background-color: #20c997;
+    transition: all .2s;
+    &:hover {
+      border-color: #ff3c3c;
+      background-color: #ff3c3c;
+    }
+  }
+
+  /* 아직 팔로우 중이 아닌 상태 */
+  &.follow {
+    color: #20c997; 
+    background-color: #ffffff;
+    &:hover {
+      color: #33e4b0; 
+      background-color: #fcfffe;
+    }
+  }
+}

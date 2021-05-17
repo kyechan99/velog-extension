@@ -47,6 +47,15 @@ const config = {
         include: /\.module\.css$/,
       },
       {
+        test: /\.scss$/,
+        use: [
+          "style-loader",
+          "css-loader",
+          "sass-loader"
+        ],
+        exclude: /node_modules/,
+      },
+      {
         test: /\.svg$/,
         use: "file-loader",
       },

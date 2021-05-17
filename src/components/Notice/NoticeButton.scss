@@ -1,0 +1,20 @@
+.v-notice-button {
+    background: transparent;
+    border: none;
+    width: 2.5rem;
+    height: 2.5rem;
+    outline: none;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-right: 0.75rem;
+    
+    &:hover {
+        background-color: #f4f4f4;
+    }
+}
+
+.v-notice-svg {
+    width: 1.125rem;
+    height: 1.125rem;
+    opacity: .8;
+}

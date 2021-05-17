@@ -13,4 +13,12 @@ interface ChangeFollow {
   follow: boolean;
 }
 
-export type MESSAGE_TYPE = FollowRequest | Follow | ChangeFollow;
+interface PageRefresh {
+  type: "REFRESH";
+}
+
+interface Error {
+  type: "ERROR";
+}
+
+export type MESSAGE_TYPE = FollowRequest | Follow | ChangeFollow | PageRefresh | Error;

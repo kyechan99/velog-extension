@@ -1,8 +1,8 @@
 import * as React from "react";
-import { MESSAGE_TYPE } from "../../types";
-import "./Button.css";
+import { MESSAGE_TYPE } from "../../message/types";
+import "./FollowButton.scss";
 
-export const Button = () => {
+export const FollowButton = () => {
   const [follow, setFollow] = React.useState(true);
 
   React.useEffect(() => {

@@ -50,6 +50,8 @@
     "html-webpack-plugin": "^5.3.1",
     "react-app-rewire-multiple-entry": "^2.2.1",
     "react-app-rewired": "^2.1.8",
+    "sass": "^1.32.13",
+    "sass-loader": "^11.1.1",
     "ts-loader": "^9.1.2",
     "webpack": "^5.37.0",
     "webpack-cli": "^4.7.0"
