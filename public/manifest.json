@@ -14,7 +14,7 @@
   "permissions": ["storage", "activeTab"],
   "content_scripts": [
     {
-      "matches": ["*://*/*"],
+      "matches": ["*://velog.io/*"],
       "js": ["content.js"]
     }
   ]

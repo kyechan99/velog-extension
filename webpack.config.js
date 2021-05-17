@@ -8,7 +8,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const config = {
   entry: {
     popup: path.join(__dirname, "src/index.tsx"),
-    content: path.join(__dirname, "src/content.ts"),
+    content: path.join(__dirname, "src/content.tsx"),
     background: path.join(__dirname, "src/background.ts"),
   },
   output: { 
