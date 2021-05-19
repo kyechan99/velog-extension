@@ -1,17 +1,43 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { FollowButton } from './components/Follow/FollowButton';
+import './App.scss';
+
+import { NoticeMenu, FollowMenu, SettingMenu } from './components/Menu/MenuButton';
+import { MenuButton } from './components/Menu/MenuButton';
+
+// let menu = 'noticeList';
+
+// const onClick = () => {
+
+// }
+
+function Layout() {
+  const [menu, setMenu] = React.useState('noticeList');
+
+  return (
+    <>
+      <div className="sidebar">
+          <NoticeMenu active={menu=='noticeList'} setMenu={setMenu} to={'noticeList'}></NoticeMenu>
+          <FollowMenu active={menu=='followList'} setMenu={setMenu} to={'followList'}></FollowMenu>
+          <SettingMenu active={menu=='setting'} setMenu={setMenu} to={'setting'}></SettingMenu>
+      </div>
+      <div className="content">
+        {
+          {
+            noticeList: <p>알림 목록</p>,
+            followList: <p>팔로우 목록</p>,
+            setting: <p>설정 목록</p>,
+          }[menu]
+        }
+      </div>
+    </>
+  )
+}
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <FollowButton/>
+        <Layout></Layout>
       </header>
     </div>
   );

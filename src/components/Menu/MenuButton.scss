@@ -1,0 +1,29 @@
+.menu {
+    width: 100%;
+    border: none;
+    color: #4e4e4ec0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: left;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    background-color: transparent;
+    cursor: pointer;
+    &.active {
+        color: #20c997;
+        .menu-logo  {
+            fill: #20c997;
+        }
+    }
+    .menu-logo  {
+        fill: #4e4e4ec0;
+        margin-left: .5rem;
+        margin-right: .5rem;
+    }
+    &:not(.active):hover {
+        color: #4e4e4e;
+        .menu-logo  {
+            fill: #4e4e4e;
+        }
+    }
+}

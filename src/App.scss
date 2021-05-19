@@ -1,0 +1,23 @@
+.App {
+  // text-align: center;
+}
+
+.App-header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.sidebar {
+  width: 12rem;
+  padding: 1rem;
+  border-right: 1px solid #4e4e4e4e;
+}
+
+.content {
+  width: 30rem;
+  padding: 1rem;
+}

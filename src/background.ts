@@ -63,5 +63,5 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function(details) {
       if (tab.status == 'complete')
         chrome.tabs.sendMessage(details.tabId, { type: 'REFRESH' } );
     }); 
-  } 
+  }
 }); 
