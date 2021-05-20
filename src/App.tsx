@@ -3,6 +3,7 @@ import './App.scss';
 
 import { NoticeMenu, FollowMenu, SettingMenu } from './components/Menu/MenuButton';
 import { MenuButton } from './components/Menu/MenuButton';
+import Logo from './logo.png';
 
 // let menu = 'noticeList';
 
@@ -16,6 +17,7 @@ function Layout() {
   return (
     <>
       <div className="sidebar">
+          <img className="logo" src={Logo} alt="logo"/>
           <NoticeMenu active={menu=='noticeList'} setMenu={setMenu} to={'noticeList'}></NoticeMenu>
           <FollowMenu active={menu=='followList'} setMenu={setMenu} to={'followList'}></FollowMenu>
           <SettingMenu active={menu=='setting'} setMenu={setMenu} to={'setting'}></SettingMenu>

@@ -1,6 +1,7 @@
 // 팔로우 정보를 요청하는 메세지
-interface FollowRequest {
+interface RequestFollow {
   type: "REQUEST_FOLLOW_STATE";
+  targetUser: string;
 }
 
 interface Follow {
@@ -10,7 +11,7 @@ interface Follow {
 
 interface ChangeFollow {
   type: "CHANGE_FOLLOW_STATE";
-  follow: boolean;
+  targetUser: string;
 }
 
 interface PageRefresh {
@@ -21,4 +22,4 @@ interface Error {
   type: "ERROR";
 }
 
-export type MESSAGE_TYPE = FollowRequest | Follow | ChangeFollow | PageRefresh | Error;
+export type MESSAGE_TYPE = RequestFollow | Follow | ChangeFollow | PageRefresh | Error;

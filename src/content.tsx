@@ -1,9 +1,11 @@
 import ReactDOM from 'react-dom';
 import { FollowButton } from './components/Follow/FollowButton';
 import { NoticeButton } from './components/Notice/NoticeButton';
-import { MESSAGE_TYPE } from "./message/types";
+import { MESSAGE_TYPE } from "./type/message";
 
-
+// 프로필을 띄울수 있는 페이지 인지 확인
+//- 1. 프로필 페이지
+//- 2. 포스트 페이지
 function checkProfilePage () : Boolean {
   return (document.URL.includes('velog.io/@'));
 }
@@ -44,7 +46,12 @@ const createFollowApp = async () => {
 
 
   // 팔로우 버튼 그려줌
-  ReactDOM.render(<FollowButton/>, followApp);
+  let urlRegex = (document.URL + '/').match(/(?<=\/\@).+?(?=\/)/g);
+  if (urlRegex) {
+    ReactDOM.render(<FollowButton targetUser={urlRegex[0]}/>, followApp);
+  } else {
+    console.error('[VELOG FOLLOW EXTENSION] : 유저명을 찾을 수 없습니다.');
+  }
 }
 
 

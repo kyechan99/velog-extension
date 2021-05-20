@@ -1,5 +1,5 @@
 import * as React from "react";
-import { MESSAGE_TYPE } from "../../message/types";
+import { MESSAGE_TYPE } from "../../type/message";
 // import "./NoticeDisplay.css";
 
 export const NoticeDisplay = () => {
