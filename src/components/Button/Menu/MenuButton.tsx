@@ -1,5 +1,5 @@
 import * as React from "react";
-import SVG from '../svg';
+import SVG from '@components/svg';
 import "./MenuButton.scss";
 
 type MenuButtonProps = {

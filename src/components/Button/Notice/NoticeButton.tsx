@@ -1,5 +1,5 @@
 import * as React from "react";
-import { MESSAGE_TYPE } from "../../type/message";
+import { MESSAGE_TYPE } from "@src/type/message";
 import "./NoticeButton.scss";
 
 export const NoticeButton = () => {

@@ -9,6 +9,7 @@
     padding-bottom: .5rem;
     background-color: transparent;
     cursor: pointer;
+    transition: color ease .2s;
     &.active {
         color: #20c997;
         .menu-logo  {

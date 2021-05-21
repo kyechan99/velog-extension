@@ -1,15 +1,12 @@
 import React from 'react';
 import './App.scss';
 
-import { NoticeMenu, FollowMenu, SettingMenu } from './components/Menu/MenuButton';
-import { MenuButton } from './components/Menu/MenuButton';
+import { NoticeMenu, FollowMenu, SettingMenu } from '@components/Button/Menu/MenuButton';
 import Logo from './logo.png';
 
-// let menu = 'noticeList';
+import { NoticeDisplay } from '@components/Display/Notice/NoticeDisplay';
+import { FollowDisplay } from '@components/Display/Follow/FollowDisplay';
 
-// const onClick = () => {
-
-// }
 
 function Layout() {
   const [menu, setMenu] = React.useState('noticeList');
@@ -25,8 +22,8 @@ function Layout() {
       <div className="content">
         {
           {
-            noticeList: <p>알림 목록</p>,
-            followList: <p>팔로우 목록</p>,
+            noticeList: <NoticeDisplay></NoticeDisplay>,
+            followList: <FollowDisplay></FollowDisplay>,
             setting: <p>설정 목록</p>,
           }[menu]
         }

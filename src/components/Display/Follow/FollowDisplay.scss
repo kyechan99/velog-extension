@@ -1,0 +1,25 @@
+.follow {
+    width: 100%;
+    display: block;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: .25rem;
+    background-color: #21c99830;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    text-align: left;
+    transition: background-color ease .5s;
+    &:hover {
+        background-color: #21c9985c;
+        .user-id {
+            font-size: 1.5rem;
+        }
+    }
+    .user-id {
+        margin: 0px;
+        color: #353535;
+        line-height: 2.5rem;
+        font-size: 1.25rem;
+        transition: font-size ease .5s;
+    }
+}

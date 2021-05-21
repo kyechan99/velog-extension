@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom';
-import { FollowButton } from './components/Follow/FollowButton';
-import { NoticeButton } from './components/Notice/NoticeButton';
+import { FollowButton } from '@components/Button/Follow/FollowButton';
+import { NoticeButton } from '@components/Button/Notice/NoticeButton';
 import { MESSAGE_TYPE } from "./type/message";
 
 // 프로필을 띄울수 있는 페이지 인지 확인

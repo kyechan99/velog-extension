@@ -1,10 +1,17 @@
 {
+  "manifest_version": 3,
   "short_name": "Velog 팔로우",
   "name": "Velog 팔로우",
   "version": "0.1",
-  "description": "",
-  "manifest_version": 3,
+  "description": "Velog 에서 팔로우를 관리하고 알림을 받습니다.",
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "64": "icon64.png",
+    "128": "icon128.png"
+  },
   "action": {
+    "default_icon": "icon128.png",
     "default_popup": "popup.html",
     "default_title": "Velog 팔로우"
   },

@@ -16,41 +16,54 @@ chrome.storage.local.get("follow", (res) => {
 });
 
 
-
 // 팔로우 상태를 보냄.
 // TODO : 현재 popup 과 contents 에게 모두 보냄. 수정할것
-const sendFollowState = (follow: boolean) => {  
-  console.log('s ', follow);
+const sendFollowState = (follow: boolean, tabId: number = -1) => {
   const message = { type: "FOLLOW_STATE", follow };
 
-  chrome.runtime.sendMessage({ type: "FOLLOW_STATE", follow });
+  console.log('SEND TO ', tabId);
+
+  if (tabId > 0) {
+    // 보낼 탭이 지정되어 있으면 그곳에만 보내고 마침
+    chrome.tabs.sendMessage(tabId, message);
+    return;
+  }
+
+  // chrome.runtime.sendMessage({ type: "FOLLOW_STATE", follow });
   
-  // 열려있는 탭들(contents)에게 보냄
-  chrome.tabs.query({}, (tabs) => {
-    tabs.forEach((tab) => {
-      if (tab.id) {
-        chrome.tabs.sendMessage(tab.id, message);
-      }
-    });
+  // content script 로 보냄
+  chrome.tabs.query({ active:true, currentWindow:true }, (tabs) => {
+    if (tabs[0].id) {
+      chrome.tabs.sendMessage(tabs[0].id, message);
+    }
+    // tabs.forEach((tab) => {
+    //   console.log(tab);
+    //   if (tab.id) {
+    //     console.log('UIDDDDDDDDDDDDD');
+    //     chrome.tabs.sendMessage(tab.id, message);
+    //   }
+    // });
   });
 };
 
 
 
 // contents나 component들 한테서 오는 메세지 리스너
-chrome.runtime.onMessage.addListener((message: MESSAGE_TYPE) => {
-  console.log(storageData);
+chrome.runtime.onMessage.addListener((message: MESSAGE_TYPE, sender) => {
+  
+  let tabId = sender.tab?.id;
+  
   switch (message.type) {
     // [팔로우 정보 요청]
     case "REQUEST_FOLLOW_STATE":
-      sendFollowState(storageData[message.targetUser] ? true: false);
+      sendFollowState(storageData[message.targetUser] ? true: false, tabId);
 
       break;
 
     // [팔로우 상태 변경 요청]
     case "CHANGE_FOLLOW_STATE":
-      console.log('CHG');
       let follow = storageData[message.targetUser] ? true: false;
+
       if (follow) {
         // 이미 팔로우 중이면 팔로우 해제함
         delete storageData[message.targetUser];
@@ -65,9 +78,23 @@ chrome.runtime.onMessage.addListener((message: MESSAGE_TYPE) => {
       chrome.storage.local.set({ "follow": storageData });
 
       // 변경된 정보를 컴포넌트 들에게 보내줌
-      sendFollowState(!follow);
+      sendFollowState(!follow, tabId);
       break;
-
+    
+    // [팔로우중인 유저 정보 요청]
+    case "REQUEST_FOLLOWING":
+      if (tabId)
+        // Velog가 켜져있는 탭에게 보냄
+        chrome.tabs.sendMessage(tabId, { type: "FOLLOWING", following: storageData });
+      
+      else
+        // Popup 에게 보냄
+        chrome.runtime.sendMessage({ type: "FOLLOWING", following: storageData });
+      
+      break;
+    case "FOLLOWING":
+      console.log('나한테 왔음');
+      break;
     default:
       break;
   }
@@ -79,6 +106,7 @@ chrome.runtime.onMessage.addListener((message: MESSAGE_TYPE) => {
 // - 페이지가 완전 새로고침의 경우 contents.js 도 새로고침 되어 필요없지만
 // - velog 는 해당 경우가 아님
 chrome.webNavigation.onHistoryStateUpdated.addListener(function(details) { 
+  console.log('d',  details);
   if (details.frameId === 0) { 
     chrome.tabs.get(details.tabId, function(tab) { 
       if (tab.status == 'complete') {
