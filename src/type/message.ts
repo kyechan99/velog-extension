@@ -40,6 +40,10 @@ interface RefreshNotice {
   notice: POST[];
   recentAt: string;
 }
+interface EditNotice {
+  type: "EDIT_NOTICE";
+  notice: POST[];
+}
 interface Notice {
   type: "NOTICE";
   notice: POST[];
@@ -67,7 +71,7 @@ interface Error {
 
 export type MESSAGE_TYPE = RequestFollow | Follow | 
                           RequestFollowing | Following | 
-                          RequestNotice | ResponseNotice | RefreshNotice | Notice | 
+                          RequestNotice | ResponseNotice | RefreshNotice | EditNotice | Notice | 
                           ChangeFollow | 
                           PageRefresh | 
                           Error;

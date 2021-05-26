@@ -4,32 +4,109 @@ import { STORAGE_FOLLOWING, NOTICE } from "@src/type/storage";
 import "./NoticeDisplay.scss";
 
 
+export type NoticeProps = {
+  title: string;
+  link: string;
+  idx: number;
+  editMode: boolean;
+  selected: boolean;
+  setRemoveTarget: (idx:number) => void
+}
 
-const Notice = ( { title, link }: NOTICE ) => {
+const Notice = ( { title, link, idx, editMode, selected, setRemoveTarget }: NoticeProps ) => {
   const author = link.match(/(?<=\/\@).+?(?=\/)/g);
   
+  const onClick = () => {
+    if (editMode) {
+      setRemoveTarget(idx);
+    } else {
+      window.open(link);
+    }
+  }
+  
   return (
-    <button className="notice" onClick={ () => { window.open(link); } }>
+    <button className={`notice ${editMode ? (selected ? 'selected' : 'ready-selected') : ''}`} onClick={ onClick }>
       <p className="notice-author">{ author ? '@'+author[0] : 'NULL' }</p>
-      <p className="notice-title">{ title }</p>
+      <p className="notice-title">{editMode ? '1' : '0'}{selected ? '1' : '0'}{ title }</p>
     </button>
   )
 }
 
+
+
+
 type NoticeListProps = {
-  contents: boolean
+  isContents: boolean
 }
 
-const NoticeList = ({ contents=true }: NoticeListProps ) => {
-  const [notices, setNotices] = React.useState<NOTICE[]>();
+const NoticeList = ({ isContents = true }: NoticeListProps ) => {
+  const [notices, setNotices] = React.useState<NOTICE[]>([]);
+  const [editMode, setEditMode] = React.useState(false);
+  const [removeList, setRemoveList] = React.useState<number[]>([]);
 
+
+  // state 변경 전에 같은 변수를 이용해서 먼저 데이터 수정함.
   let storageRecent: Date;
   let followListData : STORAGE_FOLLOWING = {};
   let noticeListData : NOTICE[] = [];
   let tempData : NOTICE[] = [];
 
+
+  // 삭제모드시, 삭제할 대상을 눌렀을때 호출됨.
+  //- 해당 대상을 삭제 대상에 추가할지 해제할지
+  const setRemoveTarget = React.useCallback(
+    idx => {
+      if (removeList?.indexOf(idx) < 0) {
+        // 삭제 목록에 없으니 추가함
+        setRemoveList(removeList?.concat(idx));
+      } else {
+        // 이미 삭제 목록에 추가된 상태이니 제거함
+        removeList.splice(idx, 1);
+      }
+    },
+    [removeList]
+  )
+
+  // 편집 완료되었을때 state를 변경하고 background에게 수정된 데이터 보내줌
+  const sendCompleteNoticeList = () => {
+    setNotices(noticeListData);
+    setRemoveList([]);
+
+    chrome.storage.local.set({ "notice": noticeListData });
+    chrome.runtime.sendMessage({
+      type: "EDIT_NOTICE", 
+      notice: noticeListData
+    });
+    setEditMode(false);
+  }
+
+  // 전체 삭제 버튼 클릭
+  const onRemoveListAll = () => {
+    if (notices?.length == 0)
+      return;
+
+    noticeListData = [];
+    
+    sendCompleteNoticeList();
+  };
+
+  // 일부 삭제 버튼
+  const onRemoveList = () => {
+    if (removeList?.length == 0)
+      return;
+
+    noticeListData = notices;
+    removeList?.forEach((idx) => {
+      if (noticeListData && (noticeListData?.length || 0 < idx))
+        delete noticeListData[idx];
+    })
+    noticeListData = noticeListData?.filter(e=>e != undefined);
+
+    sendCompleteNoticeList();
+  };
+
+  // Notice 목록 새로고침. Rss 에서 새 포스트가 있는지 확인후 가져옴
   const refreshNotice = async () => {
-    console.log('-- 이전 시각 ', storageRecent);
     try {
       tempData = [];
       for (let key in followListData) {
@@ -43,58 +120,19 @@ const NoticeList = ({ contents=true }: NoticeListProps ) => {
         
           success: function(data) {
             // console.log(' 검색 중입니다 !!!!!!!');
-            $(data)
-              .find("channel")
-              .find("item")
+            $(data).find("channel").find("item")
               .each(function() {
                 const el = $(this);
                 if (storageRecent < new Date(el.find("pubDate").text())) {
                   tempData.push({
-                    title:  el.find("title").text(),
-                    link:  el.find("link").text()
+                    title: el.find("title").text(),
+                    link: el.find("link").text()
                   });
-                  // console.log(' 저장 완료 ');
-                }  else {
-                  // console.log('post  date : ', new Date(el.find("pubDate").text()));
                 }
-                // const template = `
-                //   <article>
-                //     <img src="${el.find("link").text()}/image/large.png" alt="">
-                //     <h2>
-                //       <a href="${el
-                //         .find("link")
-                //         .text()}" target="_blank" rel="noopener">
-                //         ${el.find("title").text()}
-                //       </a>
-                //     </h2>
-                //   </article>
-                // `;
-        
-                // document.body.insertAdjacentHTML("beforeend", template);
               });
           }
         });
-        // await fetch(`https://api.rss2json.com/v1/api.json?rss_url=https%3A//v2.velog.io/rss/${key}`)
-        //           .then((response) => {
-        //               return response.json();
-        //           })
-        //           .then((data) => {
-        //               console.log(key, data);
-        //               if (data.items)
-        //                 data.items.slice(0, 10).forEach((item: POST) => {
-        //                     console.log('만큼 호출됨! ', item.title, item.pubDate);
-        //                     if (storageRecent < new Date(item.pubDate + ' GMT')) {
-        //                       console.log('진짜로 입력됩니다.');
-        //                       noticeListData.push( {
-        //                         title: item.title,
-        //                         link: item.link
-        //                       });
-        //                     }
-        //                 });
-        //           })
-          console.log('호출 완료 ');
       }
-      console.log('모두 읽기 끗 ', noticeListData);
 
       // 새로 발견한 글이 추가되었다면  저장소에 저장하고 background에 변경사항을 보냄
       //- background 내에서 새로 storage 값을 가져오게 해도 되지만 비동기 호출이 연속으로 들어가 비효율적이라 판단
@@ -106,10 +144,7 @@ const NoticeList = ({ contents=true }: NoticeListProps ) => {
         storageRecent = new Date();
         chrome.storage.local.set({ "recent": storageRecent.toString() });
         chrome.storage.local.set({ "notice": noticeListData });
-        console.log('-- 마치고 난후 시각 ', storageRecent);
-    
-        // console.log(tabId ,' 에게 보냅니다');
-    
+        
         chrome.runtime.sendMessage({
           type: "REFRESH_NOTICE", 
           notice: noticeListData, 
@@ -122,93 +157,73 @@ const NoticeList = ({ contents=true }: NoticeListProps ) => {
     }
   }
 
+  // background 로부터의 리스터
   const checkMsg = (message: MESSAGE_TYPE) => {
-    console.log('!!!!!!!!! 메세지 도착함 !!!!!! ', message);
     switch (message.type) {
       case "RESPONSE_NOTICE_REFRESH":
-        // setMsg('이 메세지 보여야됨');
-        console.log('!!!!!!!!! RESPONSE_NOTICE_REFRESH !!!!!! ');
         noticeListData = message.notice;
         setNotices(noticeListData);
         followListData = message.following;
         storageRecent = new Date(message.recentAt);
-
         refreshNotice();
-        // setFollowing(message.following);
-        // followListData = message.following;
-        // refreshNotice();
-        // setMsg('--------')
         break;
+
       default:
         break;
     }
   }
 
   React.useEffect(() => {
-    console.log('마운트 됨 !');
-    // const RSS_URL = `https://v2.velog.io/rss/hoony0802`;
-
-    // $.ajax(RSS_URL, {
-    //   accepts: {
-    //     xml: "application/rss+xml"
-    //   },
-    
-    //   dataType: "xml",
-    
-    //   success: function(data) {
-    //     console.log($(data).find(""));
-    //     $(data)
-    //       .find("channel")
-    //       .find("item")
-    //       .each(function() {
-    //         const el = $(this);
-    //         setMsg(el.find("title").text());
-    //         // const template = `
-    //         //   <article>
-    //         //     <img src="${el.find("link").text()}/image/large.png" alt="">
-    //         //     <h2>
-    //         //       <a href="${el
-    //         //         .find("link")
-    //         //         .text()}" target="_blank" rel="noopener">
-    //         //         ${el.find("title").text()}
-    //         //       </a>
-    //         //     </h2>
-    //         //   </article>
-    //         // `;
-    
-    //         // document.body.insertAdjacentHTML("beforeend", template);
-    //       });
-    //   }
-    // });
-
     chrome.runtime.sendMessage({ type: "REQUEST_NOTICE_REFRESH" });
     chrome.runtime.onMessage.addListener(checkMsg);
 
     return () => {
-      console.log('언마운트 됨!');
       chrome.runtime.onMessage.removeListener(checkMsg);
     };
-
   }, []);
 
   return  (
-    <div className={`notice-list ${contents ? "contents-notice-list" : "popup-notice-list"}`}>
-      {
-        notices?.map((e, idx) => {
-          return <Notice 
-            title={e.title} 
-            link={e.link} 
-            key={idx}
-          ></Notice>
-        })
+    <>
+      { !isContents && 
+          <div className="edit-menu">
+            {
+              !editMode ? (
+                  <>
+                    <button className="btn first-btn" onClick={() => setEditMode(true)}>편집</button>
+                  </>
+              ) : (
+                <>
+                  <button className="btn first-btn" onClick={() => setEditMode(false)}>취소</button>
+                  <button className="btn" onClick={onRemoveListAll}>모두 삭제</button>
+                  <button className="btn danger" onClick={onRemoveList}>삭제</button>
+                </>
+              )
+            }
+          </div>
       }
-    </div>
+      <div className={`notice-list ${isContents ? "contents-notice-list" : "popup-notice-list"}`}>
+        {
+          notices?.map((e, idx) => {
+            return <Notice 
+              title={e.title} 
+              link={e.link} 
+              key={idx}
+              idx={idx}
+              editMode={editMode}
+              selected={removeList.indexOf(idx) >= 0}
+              setRemoveTarget={setRemoveTarget}
+            ></Notice>
+          })
+        }
+      </div>
+    </>
   );
 };
 
-export const NoticeDisplay = ({ contents=true }: NoticeListProps ) => {
 
+
+export const NoticeDisplay = ({ isContents=true }: NoticeListProps ) => {
   return (
-    <NoticeList contents={contents}></NoticeList>
+      <NoticeList isContents={isContents}></NoticeList>
   );
 };
