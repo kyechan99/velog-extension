@@ -2,6 +2,9 @@ import ReactDOM from 'react-dom';
 import { FollowButton } from '@components/Button/Follow/FollowButton';
 import { NoticeButton } from '@components/Button/Notice/NoticeButton';
 import { MESSAGE_TYPE } from "./type/message";
+import { USER_TYPE, STORAGE_FOLLOWING, POST, NOTICE } from "./type/storage";
+
+
 
 // 프로필을 띄울수 있는 페이지 인지 확인
 //- 1. 프로필 페이지
@@ -80,12 +83,12 @@ const createNoticeApp = async () => {
   //  - Velog 는 navbar 를 두개 사용함. (고정용 | 스크롤용)
   const navbarRightSide = document.getElementsByClassName("sc-jKJlTe hoxhZc");
   navbarRightSide[0]?.prepend(noticeApp1);   // 고정 navbar
-  navbarRightSide[1]?.prepend(noticeApp2);   // 스크롤 했을때 뜨는 navbar
+  // navbarRightSide[1]?.prepend(noticeApp2);   // 스크롤 했을때 뜨는 navbar
   
   
   // 알림 버튼 그려줌
   ReactDOM.render(<NoticeButton/>, noticeApp1);
-  ReactDOM.render(<NoticeButton/>, noticeApp2);
+  // ReactDOM.render(<NoticeButton/>, noticeApp2);
 }
 
 

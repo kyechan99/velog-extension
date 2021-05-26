@@ -1,12 +1,12 @@
 
-// Storage 에 저장될 기본 유저 데이터
+// 기본 유저 데이터
 export type USER_TYPE = {
     // 팔로우한 날짜
     followAt: Date
 }
 
-// Storage 에 저장될 통합 데이터
-export type STORAGE_TYPE = {
+// Storage 에 저장될 유저 데이터들
+export type STORAGE_FOLLOWING = {
     /*
         "대상이름1" : {
             "followAt": "팔로우한 날짜"
@@ -16,4 +16,18 @@ export type STORAGE_TYPE = {
         },
     */
     [targetUser: string]: USER_TYPE;
+}
+
+
+// 포스트 데이터
+export type POST = {
+    title: string | '';
+    link: string | '';
+    pubDate: string | '';
+}
+
+// 알림 데이터
+export type NOTICE = {
+    title: string;
+    link: string;
 }

@@ -2,11 +2,11 @@ import * as React from "react";
 import { MESSAGE_TYPE } from "@src/type/message";
 import "./FollowButton.scss";
 
-type Button_Props = {
+type FollowButtonProps = {
   targetUser: string
 }
 
-export const FollowButton = ({ targetUser } : Button_Props) => {
+export const FollowButton = ({ targetUser } : FollowButtonProps) => {
   const [follow, setFollow] = React.useState(true);
 
   React.useEffect(() => {

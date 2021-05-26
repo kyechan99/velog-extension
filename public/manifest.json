@@ -21,8 +21,12 @@
   "permissions": ["storage", "activeTab", "webNavigation"],
   "content_scripts": [
     {
-      "matches": ["*://velog.io/*"],
-      "js": ["content.js"]
+      "matches": ["*://velog.io/*", "*://v2.velog.io/*"],
+      "js": ["jquery.min.js", "content.js"]
     }
+  ],
+  "host_permissions": [
+    "http://www.google.com/",
+    "https://www.google.com/"
   ]
 }

@@ -1,5 +1,5 @@
 
-import {STORAGE_TYPE} from './storage';
+import { STORAGE_FOLLOWING, POST } from './storage';
 
 // [팔로우 상태 정보] - 요청
 //- targetUser: 팔로우한 상대인지 확인할 유저 id
@@ -22,7 +22,27 @@ interface RequestFollowing {
 // [팔로우중인 유저 정보] - 응답
 interface Following {
   type: "FOLLOWING";
-  following: STORAGE_TYPE;
+  following: STORAGE_FOLLOWING;
+}
+
+
+interface RequestNotice {
+  type: "REQUEST_NOTICE_REFRESH";
+}
+interface ResponseNotice {
+  type: "RESPONSE_NOTICE_REFRESH";
+  notice: POST[];
+  following: STORAGE_FOLLOWING;
+  recentAt: string;
+}
+interface RefreshNotice {
+  type: "REFRESH_NOTICE";
+  notice: POST[];
+  recentAt: string;
+}
+interface Notice {
+  type: "NOTICE";
+  notice: POST[];
 }
 
 
@@ -45,4 +65,9 @@ interface Error {
   type: "ERROR";
 }
 
-export type MESSAGE_TYPE = RequestFollow | Follow | RequestFollowing | Following | ChangeFollow | PageRefresh | Error;
+export type MESSAGE_TYPE = RequestFollow | Follow | 
+                          RequestFollowing | Following | 
+                          RequestNotice | ResponseNotice | RefreshNotice | Notice | 
+                          ChangeFollow | 
+                          PageRefresh | 
+                          Error;

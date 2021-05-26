@@ -22,7 +22,7 @@ function Layout() {
       <div className="content">
         {
           {
-            noticeList: <NoticeDisplay></NoticeDisplay>,
+            noticeList: <NoticeDisplay contents={false}></NoticeDisplay>,
             followList: <FollowDisplay></FollowDisplay>,
             setting: <p>설정 목록</p>,
           }[menu]

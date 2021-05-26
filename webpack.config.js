@@ -73,12 +73,18 @@ const config = {
     ],
   },
   resolve: {
+    modules: ['node_modules'],
     extensions: [".js", ".jsx", ".tsx", ".ts"],
     alias: {
       "react-dom": "@hot-loader/react-dom",
       '@src': path.resolve(__dirname, './src'),
       '@components': path.resolve(__dirname, './src/components')
     },
+    fallback: { 
+      "path" : require.resolve("stream-http"), 
+      "https": require.resolve("https-browserify"),
+      "http": require.resolve("stream-http")
+     }
   },
   devServer: {
     contentBase: "./dist",

@@ -12,18 +12,18 @@
     transition: color ease .2s;
     &.active {
         color: #20c997;
-        .menu-logo  {
+        .icon  {
             fill: #20c997;
         }
     }
-    .menu-logo  {
+    .icon  {
         fill: #4e4e4ec0;
         margin-left: .5rem;
         margin-right: .5rem;
     }
     &:not(.active):hover {
         color: #4e4e4e;
-        .menu-logo  {
+        .icon  {
             fill: #4e4e4e;
         }
     }

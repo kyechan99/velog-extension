@@ -1,11 +1,11 @@
-type SVGType = {
+type IconType = {
     d: string
 }
 
-const SVG = ({d} : SVGType) => {
+const Icon = ({d} : IconType) => {
     return (
         <svg
-            className = 'menu-logo'
+            className = 'icon'
             xmlns = 'http://www.w3.org/2000/svg'
             width = '16'
             height = '16'
@@ -19,4 +19,4 @@ const SVG = ({d} : SVGType) => {
     );
 };
 
-export default SVG;
+export default Icon;
