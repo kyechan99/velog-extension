@@ -1,5 +1,5 @@
 .notice-list {
-    height: 100%;
+    height: 90%;
     overflow-y: auto;
     &::-webkit-scrollbar {
         width: .25rem;
@@ -88,4 +88,11 @@
             color : #FF8787;
         }
     }
+}
+
+.notice-msg {
+    margin-top: 1rem;
+    margin-bottom: 0px;
+    color: #aaa;
+    font-size: 1rem;
 }

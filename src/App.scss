@@ -16,11 +16,17 @@
   width: 12rem;
   padding: 1rem;
   border-right: 1px solid #4e4e4e4e;
-  .logo {
-    width: 3rem;
+  .btn {
+    border: none;
+    background-color: transparent;
+    width: 3.5rem;
     margin: 0 auto;
-    border-radius: .25rem;
     display: block;
+    cursor: pointer;
+  }
+  .logo {
+    width: 100%;
+    border-radius: .25rem;
     margin-bottom: 2rem;
     margin-top: 1.5rem;
   }
@@ -30,3 +36,4 @@
   width: 27rem;
   padding: 2.75rem 3rem;
 }
+

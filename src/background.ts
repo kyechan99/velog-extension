@@ -130,6 +130,9 @@ chrome.runtime.onMessage.addListener((message: MESSAGE_TYPE, sender) => {
       noticeListData = message.notice;
       break;
 
+    case "EDIT_FOLLOW":
+      followListData = message.following;
+      break;
 
     case "EDIT_NOTICE":
       noticeListData = message.notice;

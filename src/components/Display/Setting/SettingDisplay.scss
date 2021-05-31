@@ -1,0 +1,57 @@
+
+.block {
+    padding-top: 1.75rem;
+    padding-bottom: 1.75rem;
+    &:first-of-type {
+        padding-top: 0rem;
+    }
+    &+.block {
+        border-top: 1px solid #c3c3c3;
+    }
+    .block-title {
+        font-size: 1.25rem;
+        color: #404040;
+        font-weight: bold;
+        margin-top: 0px;
+        margin-bottom: .25rem;
+    }
+    .block-desc {
+        font-size: .75rem;
+        margin-top: 0px;
+        margin-bottom: .5rem;
+        color: #5a5a5a;
+    }
+    .btn {
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+    }
+    .btn-outline {
+        border: 1px solid black;
+        background-color: transparent;
+        cursor: pointer;
+        &.btn-warning {
+            color: #FF8787;
+            padding: .5rem 1rem;
+            border-color: #FF8787;
+            border-radius: .25rem;
+            transition: all ease .5s;
+            border-radius: .25rem;
+            &:hover {
+                color: white;
+                background-color: #FF8787;
+            }
+        }
+    }
+}
+
+.github-img {
+    width: 2rem;
+}
+
+.alert-msg {
+    display: inline;
+    color: #ff8787;
+    margin-left: 1rem;
+    font-size: .5rem;
+}

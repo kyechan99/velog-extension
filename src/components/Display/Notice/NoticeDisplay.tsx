@@ -27,7 +27,7 @@ const Notice = ( { title, link, idx, editMode, selected, setRemoveTarget }: Noti
   return (
     <button className={`notice ${editMode ? (selected ? 'selected' : 'ready-selected') : ''}`} onClick={ onClick }>
       <p className="notice-author">{ author ? '@'+author[0] : 'NULL' }</p>
-      <p className="notice-title">{editMode ? '1' : '0'}{selected ? '1' : '0'}{ title }</p>
+      <p className="notice-title">{ title }</p>
     </button>
   )
 }
@@ -203,17 +203,27 @@ const NoticeList = ({ isContents = true }: NoticeListProps ) => {
       }
       <div className={`notice-list ${isContents ? "contents-notice-list" : "popup-notice-list"}`}>
         {
-          notices?.map((e, idx) => {
-            return <Notice 
-              title={e.title} 
-              link={e.link} 
-              key={idx}
-              idx={idx}
-              editMode={editMode}
-              selected={removeList.indexOf(idx) >= 0}
-              setRemoveTarget={setRemoveTarget}
-            ></Notice>
-          })
+          notices.length > 0 ?
+            notices?.map((e, idx) => {
+              return <Notice 
+                title={e.title} 
+                link={e.link} 
+                key={idx}
+                idx={idx}
+                editMode={editMode}
+                selected={removeList.indexOf(idx) >= 0}
+                setRemoveTarget={setRemoveTarget}
+              ></Notice>
+            })
+            :
+            <>
+              <p className="notice-msg">
+                알림 내역이 없습니다.
+              </p>
+              <p className="notice-msg">
+                아직 팔로우 이후 새로 올라온 글이 없거나 새로 고침 후 나타날 수도 있습니다.
+              </p>
+            </>
         }
       </div>
     </>

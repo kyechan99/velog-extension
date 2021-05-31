@@ -6,6 +6,7 @@ import Logo from './logo.png';
 
 import { NoticeDisplay } from '@components/Display/Notice/NoticeDisplay';
 import { FollowDisplay } from '@components/Display/Follow/FollowDisplay';
+import { SettingDisplay } from '@components/Display/Setting/SettingDisplay';
 
 
 function Layout() {
@@ -14,7 +15,9 @@ function Layout() {
   return (
     <>
       <div className="sidebar">
-          <img className="logo" src={Logo} alt="logo"/>
+          <button className="btn" onClick={ () => { window.open("https://velog.io/"); } }>
+            <img className="logo" src={Logo} alt="logo"/>
+          </button>
           <NoticeMenu active={menu=='noticeList'} setMenu={setMenu} to={'noticeList'}></NoticeMenu>
           <FollowMenu active={menu=='followList'} setMenu={setMenu} to={'followList'}></FollowMenu>
           <SettingMenu active={menu=='setting'} setMenu={setMenu} to={'setting'}></SettingMenu>
@@ -24,7 +27,7 @@ function Layout() {
           {
             noticeList: <NoticeDisplay isContents={false}></NoticeDisplay>,
             followList: <FollowDisplay></FollowDisplay>,
-            setting: <p>설정 목록</p>,
+            setting: <SettingDisplay></SettingDisplay>
           }[menu]
         }
       </div>

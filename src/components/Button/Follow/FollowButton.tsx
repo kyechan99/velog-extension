@@ -29,7 +29,7 @@ export const FollowButton = ({ targetUser } : FollowButtonProps) => {
 
   return (
     <button className={`v-follow-bt ${follow ? "following" : "follow"}`} onClick={onClick}>
-      {follow ? "팔로우" : "팔로우 하기"}
+      {follow ? "팔로우 중" : "팔로우 하기"}
     </button>
   );
 };
