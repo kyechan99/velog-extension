@@ -10,7 +10,7 @@ import { SettingDisplay } from '@components/Display/Setting/SettingDisplay';
 
 
 function Layout() {
-  const [menu, setMenu] = React.useState('noticeList');
+  const [menu, setMenu] = React.useState('');
 
   return (
     <>

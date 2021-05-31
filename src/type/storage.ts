@@ -2,7 +2,7 @@
 // 기본 유저 데이터
 export type USER_TYPE = {
     // 팔로우한 날짜
-    followAt: Date
+    followAt: string
 }
 
 // Storage 에 저장될 유저 데이터들

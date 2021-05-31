@@ -79,10 +79,11 @@
         cursor: pointer;
         transition: background-color ease .25s;
         &:hover {
-            background: #eeeeee;
+            background-color: #eeeeee;
         }
         &.first-btn {
             margin-right: auto;
+            background-color: #eeeeee;
         }
         &.danger {
             color : #FF8787;

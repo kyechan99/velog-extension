@@ -13,10 +13,11 @@ chrome.storage.local.get("follow", (res) => {
   followListData = res["follow"];
   if (!followListData) {
     followListData = { 
-      'tomato2532' : { followAt: new Date() },
-      'henry0814' : { followAt: new Date() }
+      'tomato2532' : { followAt: (new Date()).toString() },
+      'henry0814' : { followAt: (new Date()).toString() }
     };
   }
+  console.log(followListData);
 });
 chrome.storage.local.get("recent", (res) => {
   if (!res.recent) {
@@ -65,7 +66,9 @@ const changeFollowState = (targetUser: string, tabId: number) => {
     delete followListData[targetUser];
   } else {
     // 팔로우 중이 아니면 팔로우함
-    let data : USER_TYPE = { followAt: new Date() };
+    let data : USER_TYPE = { 
+      followAt: (new Date()).toString()
+    };
     followListData[targetUser] = data;
   }
   

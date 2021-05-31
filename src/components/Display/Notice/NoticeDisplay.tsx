@@ -110,7 +110,6 @@ const NoticeList = ({ isContents = true }: NoticeListProps ) => {
     try {
       tempData = [];
       for (let key in followListData) {
-      // Object.keys(followListData).map(async (key) => {
         await $.ajax(`https://v2.velog.io/rss/${key}`, {
           accepts: {
             xml: "application/rss+xml"
@@ -119,17 +118,19 @@ const NoticeList = ({ isContents = true }: NoticeListProps ) => {
           dataType: "xml",
         
           success: function(data) {
-            // console.log(' 검색 중입니다 !!!!!!!');
-            $(data).find("channel").find("item")
-              .each(function() {
-                const el = $(this);
-                if (storageRecent < new Date(el.find("pubDate").text())) {
-                  tempData.push({
-                    title: el.find("title").text(),
-                    link: el.find("link").text()
-                  });
-                }
-              });
+            $(data).find("channel").find("item").each(() => {
+              const el = $(this);
+              let postData = new Date(el.find("pubDate").text());
+              // 최근 업데이트 날짜 이후에 작성된 글이며 팔로우 한 날보다 뒤의 글이여야 함
+              if (storageRecent < postData && new Date(followListData[key].followAt) < postData) {
+                tempData.push({
+                  title: el.find("title").text(),
+                  link: el.find("link").text()
+                });
+              } else {
+                return false;
+              }
+            });
           }
         });
       }
@@ -161,10 +162,14 @@ const NoticeList = ({ isContents = true }: NoticeListProps ) => {
   const checkMsg = (message: MESSAGE_TYPE) => {
     switch (message.type) {
       case "RESPONSE_NOTICE_REFRESH":
+        console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+        // 백그라운드에 저장되 있던 임시 데이터를 먼저 받아옴
         noticeListData = message.notice;
-        setNotices(noticeListData);
         followListData = message.following;
         storageRecent = new Date(message.recentAt);
+        setNotices(noticeListData);
+
+        // rss 에서 신규 데이터 여부 확인 및 저장
         refreshNotice();
         break;
 
