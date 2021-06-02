@@ -1,0 +1,41 @@
+@import '@assets/variables.scss';
+
+.main {
+}
+
+.version-content {
+    .version {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+        &:first-of-type {
+            padding-top: 0rem;
+        }
+        &+.version {
+            border-top: 1px solid $line;
+        }
+        .version-tag {
+            color: $title;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 0px;
+            margin-bottom: .25rem;
+            .version-latest {
+                color: $white;
+                font-size: .5rem;
+                font-weight: 500;
+                padding: .25rem;
+                margin-left: .5rem;
+                margin-bottom: .25rem;
+                border-radius: .25rem;
+                background-color: $primary;
+            }
+        }
+        .version-list {
+            color: $desc;
+            font-size: 1rem;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            padding-left: 2rem;
+        }
+    }
+}

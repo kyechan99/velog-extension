@@ -1,3 +1,4 @@
+@import '@assets/variables.scss';
 
 .block {
     padding-top: 1.75rem;
@@ -6,11 +7,11 @@
         padding-top: 0rem;
     }
     &+.block {
-        border-top: 1px solid #c3c3c3;
+        border-top: 1px solid $line;
     }
     .block-title {
         font-size: 1.25rem;
-        color: #404040;
+        color: $title;
         font-weight: bold;
         margin-top: 0px;
         margin-bottom: .25rem;
@@ -19,7 +20,7 @@
         font-size: .75rem;
         margin-top: 0px;
         margin-bottom: .5rem;
-        color: #5a5a5a;
+        color: $desc;
     }
     .btn {
         border: none;
@@ -27,19 +28,19 @@
         cursor: pointer;
     }
     .btn-outline {
-        border: 1px solid black;
+        border: 1px solid $black;
         background-color: transparent;
         cursor: pointer;
         &.btn-warning {
-            color: #FF8787;
+            color: $danger;
             padding: .5rem 1rem;
-            border-color: #FF8787;
+            border-color: $danger;
             border-radius: .25rem;
             transition: all ease .5s;
             border-radius: .25rem;
             &:hover {
                 color: white;
-                background-color: #FF8787;
+                background-color: $danger;
             }
         }
     }
@@ -51,7 +52,7 @@
 
 .alert-msg {
     display: inline;
-    color: #ff8787;
+    color: $danger;
     margin-left: 1rem;
     font-size: .5rem;
 }

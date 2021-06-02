@@ -1,6 +1,7 @@
 import * as React from "react";
 import { MESSAGE_TYPE } from "@src/type/message";
 import { STORAGE_FOLLOWING, NOTICE } from "@src/type/storage";
+import "@assets/base.scss";
 import "./NoticeDisplay.scss";
 
 
@@ -128,7 +129,7 @@ const NoticeList = ({ isContents = true }: NoticeListProps ) => {
                   link: el.find("link").text()
                 });
               } else {
-                return false;
+                return;
               }
             });
           }
@@ -206,7 +207,7 @@ const NoticeList = ({ isContents = true }: NoticeListProps ) => {
             }
           </div>
       }
-      <div className={`notice-list ${isContents ? "contents-notice-list" : "popup-notice-list"}`}>
+      <div className={`notice-list scroll-content ${isContents ? "contents-notice-list" : "popup-notice-list"}`}>
         {
           notices.length > 0 ?
             notices?.map((e, idx) => {

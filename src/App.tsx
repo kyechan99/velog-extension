@@ -4,13 +4,14 @@ import './App.scss';
 import { NoticeMenu, FollowMenu, SettingMenu } from '@components/Button/Menu/MenuButton';
 import Logo from './logo.png';
 
+import { MainDisplay } from '@components/Display/Main/MainDisplay';
 import { NoticeDisplay } from '@components/Display/Notice/NoticeDisplay';
 import { FollowDisplay } from '@components/Display/Follow/FollowDisplay';
 import { SettingDisplay } from '@components/Display/Setting/SettingDisplay';
 
 
 function Layout() {
-  const [menu, setMenu] = React.useState('');
+  const [menu, setMenu] = React.useState('main');
 
   return (
     <>
@@ -25,6 +26,7 @@ function Layout() {
       <div className="content">
         {
           {
+            main: <MainDisplay></MainDisplay>,
             noticeList: <NoticeDisplay isContents={false}></NoticeDisplay>,
             followList: <FollowDisplay></FollowDisplay>,
             setting: <SettingDisplay></SettingDisplay>

@@ -2,6 +2,7 @@ import * as React from "react";
 import { MESSAGE_TYPE } from "@src/type/message";
 import { STORAGE_FOLLOWING } from "@src/type/storage";
 import Icon from '@src/components/Icon';
+import "@assets/base.scss";
 import "./FollowDisplay.scss";
 
 
@@ -34,7 +35,7 @@ const FollowList = () => {
   }, []);
 
   return  (
-    <div className="follow-list">
+    <div className="follow-list scroll-content">
       {
         Object.keys(following).map(function (key) {
           return <Follow userId={key} key={key}></Follow>

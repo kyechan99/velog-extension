@@ -1,15 +1,7 @@
+@import '@assets/variables.scss';
+
 .notice-list {
     height: 90%;
-    overflow-y: auto;
-    &::-webkit-scrollbar {
-        width: .25rem;
-    }
-    &::-webkit-scrollbar-thumb {
-        background-color: #bbbbbb;
-    }
-    &::-webkit-scrollbar-track {
-        background-color: rgba(255, 255, 255, 0);
-    }
     &.contents-notice-list {
         position: absolute;
         background-color: white;
@@ -34,19 +26,19 @@
     text-align: left;
     display: flex;
     flex-direction: column;
-    background-color: #efefef;
+    background-color: $secondary;
     transition: background-color ease .25s;
     cursor: pointer;
     &:not(.ready-selected):hover {
-        background-color: #21c99830;
+        background-color: $primary-lazy-hover;
     }
     &.ready-selected:hover {
-        background-color: #FF878730;
+        background-color: $danger-lazy-hover;
     }
     &.selected {
-        background-color: #ff87874d;
+        background-color: $danger-hover;
         &:hover {
-            background-color: #ff87874d;
+            background-color: $danger-hover;
         }
     }
     .notice-author {
@@ -63,7 +55,7 @@
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
-        color: #000000;
+        color: $black;
     }
 }
 
@@ -79,14 +71,14 @@
         cursor: pointer;
         transition: background-color ease .25s;
         &:hover {
-            background-color: #eeeeee;
+            background-color: $secondary;
         }
         &.first-btn {
             margin-right: auto;
-            background-color: #eeeeee;
+            background-color: $secondary;
         }
         &.danger {
-            color : #FF8787;
+            color : $danger;
         }
     }
 }

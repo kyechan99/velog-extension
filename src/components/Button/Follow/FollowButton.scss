@@ -1,30 +1,32 @@
+@import '@assets/variables.scss';
+
 
 .v-follow-bt {
   width: 8rem; 
-  color: white; 
+  color: $white; 
   font-size: 1rem; 
   margin-top: 1rem;
   padding: .75rem .5rem; 
   border-radius: .25rem; 
-  border: 1px solid #20c997;
+  border: 1px solid $primary;
   cursor: pointer;
 
   /* 팔로우 중인 상태 */
   &.following {
-    background-color: #20c997;
+    background-color: $primary;
     transition: all .2s;
     &:hover {
-      border-color: #FF8787;
-      background-color: #FF8787;
+      border-color: $danger;
+      background-color: $danger;
     }
   }
 
   /* 아직 팔로우 중이 아닌 상태 */
   &.follow {
-    color: #20c997; 
-    background-color: #ffffff;
+    color: $primary; 
+    background-color: $white;
     &:hover {
-      color: #33e4b0; 
+      color: $primary-hover; 
       background-color: #fcfffe;
     }
   }

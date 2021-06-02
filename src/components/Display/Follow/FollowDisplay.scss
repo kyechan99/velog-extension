@@ -1,16 +1,4 @@
-.follow-list {
-    height: 100%;
-    overflow-y: auto;
-    &::-webkit-scrollbar {
-        width: .25rem;
-    }
-    &::-webkit-scrollbar-thumb {
-        background-color: #bbbbbb;
-    }
-    &::-webkit-scrollbar-track {
-        background-color: rgba(255, 255, 255, 0);
-    }
-}
+@import '@assets/variables.scss';
 
 .follow {
     width: 100%;

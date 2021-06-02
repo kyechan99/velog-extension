@@ -78,7 +78,8 @@ const config = {
     alias: {
       "react-dom": "@hot-loader/react-dom",
       '@src': path.resolve(__dirname, './src'),
-      '@components': path.resolve(__dirname, './src/components')
+      '@components': path.resolve(__dirname, './src/components'),
+      '@assets': path.resolve(__dirname, './src/assets')
     },
     fallback: { 
       "path" : require.resolve("stream-http"), 

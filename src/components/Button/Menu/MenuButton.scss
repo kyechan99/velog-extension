@@ -1,7 +1,9 @@
+@import '@assets/variables.scss';
+
 .menu {
     width: 100%;
     border: none;
-    color: #4e4e4ec0;
+    color: $lazy-gray;
     font-size: 1.25rem;
     font-weight: 600;
     text-align: left;
@@ -11,20 +13,20 @@
     cursor: pointer;
     transition: color ease .2s;
     &.active {
-        color: #20c997;
+        color: $primary;
         .icon  {
-            fill: #20c997;
+            fill: $primary;
         }
     }
     .icon  {
-        fill: #4e4e4ec0;
+        fill: $lazy-gray;
         margin-left: .5rem;
         margin-right: .5rem;
     }
     &:not(.active):hover {
-        color: #4e4e4e;
+        color: $gray;
         .icon  {
-            fill: #4e4e4e;
+            fill: $gray;
         }
     }
 }
