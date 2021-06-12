@@ -7,34 +7,6 @@ import "./MainDisplay.scss";
 export const MainDisplay = () => {
   let versionList = [
         {
-            tag: '1.0.2',
-            list: [
-                '어쩌구 저쩌구2',
-                '블라 블라2'
-            ]
-        },
-        {
-            tag: '1.0.1',
-            list: [
-                '어쩌구 저쩌구1',
-                '블라 블라1'
-            ]
-        },
-        {
-            tag: '1.0.0',
-            list: [
-                '어쩌구 저쩌구',
-                '블라 블라'
-            ]
-        },
-        {
-            tag: '1.0.0',
-            list: [
-                '어쩌구 저쩌구',
-                '블라 블라'
-            ]
-        },
-        {
             tag: '1.0.0',
             list: [
                 '어쩌구 저쩌구',

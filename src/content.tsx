@@ -3,7 +3,6 @@ import { FollowButton } from '@components/Button/Follow/FollowButton';
 import { NoticeButton } from '@components/Button/Notice/NoticeButton';
 import { TopButton } from '@components/Button/TopButton/TopButton';
 import { MESSAGE_TYPE } from "./type/message";
-import { USER_TYPE, STORAGE_FOLLOWING, POST, NOTICE } from "./type/storage";
 
 
 
@@ -64,14 +63,16 @@ const createFollowApp = async () => {
  *    Navbar에 알림 상태를 띄워줄 버튼 및 공간 생성
  */
 const createNoticeApp = async () => {
-  if (document.getElementById("v-notice-app-1")) {
+  if (document.getElementById("v-notice-app") || document.getElementById("v-nav-app")) {
     return;
   }
+  console.log('velog extension 생성중...');
 
   // 버튼을 바로 생성하게 되면 렌더링 과정에서 사라져 버림. 딜레이를 줌
   // - background 에서 페이지가 완전 로드 후 생성하게 해도 되지만 효율 자체는 떨어져 보임
   // - 100 은 임의. 바로 로드 되는 듯한 느낌을 주지만 강력 새로고침의 경우 너무 빨리 호출되는 문제가 있긴 있음
   await new Promise<void>((resolve, reject) => setTimeout(() => { resolve(); }, 100));
+
 
   // Notice 버튼을 넣을 공간. APP 생성
   const noticeApp = document.createElement("div");
@@ -83,6 +84,7 @@ const createNoticeApp = async () => {
   // Navbar 우측 사이드 (프로필 및 아이콘 기능)
   //  - Velog 는 navbar 를 두개 사용함. (고정용 | 스크롤용)
   const navbarRightSide = document.getElementsByClassName("sc-jKJlTe hoxhZc");
+  if (!navbarRightSide) return;
   navbarRightSide[0]?.prepend(noticeApp);   // 고정 navbar
   navbarRightSide[1]?.prepend(navApp);   // 스크롤 했을때 뜨는 navbar
   
@@ -90,6 +92,11 @@ const createNoticeApp = async () => {
   // 알림 버튼 그려줌
   ReactDOM.render(<NoticeButton/>, noticeApp);
   ReactDOM.render(<TopButton/>, navApp);
+
+
+  // 3초후에 재확인함.
+  await new Promise<void>((resolve, reject) => setTimeout(() => { resolve(); }, 3000));
+  createNoticeApp();
 }
 
 

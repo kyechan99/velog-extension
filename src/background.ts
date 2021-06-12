@@ -12,9 +12,7 @@ let noticeListData : NOTICE[] = [];
 chrome.storage.local.get("follow", (res) => {
   followListData = res["follow"];
   if (!followListData) {
-    followListData = { 
-      'tomato2532' : { followAt: (new Date()).toString() },
-      'henry0814' : { followAt: (new Date()).toString() }
+    followListData = {
     };
   }
   console.log(followListData);
