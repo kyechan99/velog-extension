@@ -71,6 +71,8 @@ const changeFollowState = (targetUser: string, tabId: number) => {
     };
     followListData[targetUser] = data;
   }
+  console.log(targetUser, '의 팔로우 상태를 변경합니다');
+  console.log(followListData);
   
   // storage에 변경사항 저장
   chrome.storage.local.set({ "follow": followListData });

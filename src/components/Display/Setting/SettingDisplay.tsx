@@ -13,7 +13,7 @@ export const SettingDisplay = () => {
     chrome.storage.local.set({ "follow": [] });
     chrome.runtime.sendMessage({
       type: "EDIT_FOLLOW", 
-      following: []
+      following: {}
     });
     setResetFollow(true);
   };

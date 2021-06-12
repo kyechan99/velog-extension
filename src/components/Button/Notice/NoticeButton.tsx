@@ -1,6 +1,6 @@
 import * as React from "react";
 import { MESSAGE_TYPE } from "@src/type/message";
-import "./NoticeButton.scss";
+import "@assets/navButton.scss";
 
 import { NoticeDisplay } from "@components/Display/Notice/NoticeDisplay";
 

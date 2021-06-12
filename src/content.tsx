@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom';
 import { FollowButton } from '@components/Button/Follow/FollowButton';
 import { NoticeButton } from '@components/Button/Notice/NoticeButton';
+import { TopButton } from '@components/Button/TopButton/TopButton';
 import { MESSAGE_TYPE } from "./type/message";
 import { USER_TYPE, STORAGE_FOLLOWING, POST, NOTICE } from "./type/storage";
 
@@ -73,22 +74,22 @@ const createNoticeApp = async () => {
   await new Promise<void>((resolve, reject) => setTimeout(() => { resolve(); }, 100));
 
   // Notice 버튼을 넣을 공간. APP 생성
-  const noticeApp1 = document.createElement("div");
-  noticeApp1.id = "v-notice-app-1";
-  const noticeApp2 = document.createElement("div");
-  noticeApp2.id = "v-notice-app-2";
+  const noticeApp = document.createElement("div");
+  noticeApp.id = "v-notice-app";
+  const navApp = document.createElement("div");
+  navApp.id = "v-nav-app";
   
   
   // Navbar 우측 사이드 (프로필 및 아이콘 기능)
   //  - Velog 는 navbar 를 두개 사용함. (고정용 | 스크롤용)
   const navbarRightSide = document.getElementsByClassName("sc-jKJlTe hoxhZc");
-  navbarRightSide[0]?.prepend(noticeApp1);   // 고정 navbar
-  // navbarRightSide[1]?.prepend(noticeApp2);   // 스크롤 했을때 뜨는 navbar
+  navbarRightSide[0]?.prepend(noticeApp);   // 고정 navbar
+  navbarRightSide[1]?.prepend(navApp);   // 스크롤 했을때 뜨는 navbar
   
   
   // 알림 버튼 그려줌
-  ReactDOM.render(<NoticeButton/>, noticeApp1);
-  // ReactDOM.render(<NoticeButton/>, noticeApp2);
+  ReactDOM.render(<NoticeButton/>, noticeApp);
+  ReactDOM.render(<TopButton/>, navApp);
 }
 
 

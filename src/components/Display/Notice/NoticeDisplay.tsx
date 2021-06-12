@@ -59,10 +59,12 @@ const NoticeList = ({ isContents = true }: NoticeListProps ) => {
     idx => {
       if (removeList?.indexOf(idx) < 0) {
         // 삭제 목록에 없으니 추가함
-        setRemoveList(removeList?.concat(idx));
+        // setRemoveList(removeList?.concat(idx));
+        setRemoveList([...removeList, idx]);
       } else {
         // 이미 삭제 목록에 추가된 상태이니 제거함
-        removeList.splice(idx, 1);
+        // setRemoveList(removeList.splice(idx, 1));
+        setRemoveList(removeList.filter(e => e !== idx));
       }
     },
     [removeList]
@@ -119,17 +121,21 @@ const NoticeList = ({ isContents = true }: NoticeListProps ) => {
           dataType: "xml",
         
           success: function(data) {
-            $(data).find("channel").find("item").each(() => {
+            $(data).find("channel").find("item").each(function() {
               const el = $(this);
-              let postData = new Date(el.find("pubDate").text());
+              let postDate = new Date(el.find("pubDate").text());
               // 최근 업데이트 날짜 이후에 작성된 글이며 팔로우 한 날보다 뒤의 글이여야 함
-              if (storageRecent < postData && new Date(followListData[key].followAt) < postData) {
+              // console.log(key, ' follow At ', new Date(followListData[key].followAt));
+              // console.log('post date at ', postDate);
+              if (storageRecent < postDate && new Date(followListData[key].followAt) < postDate) {
+                console.log(key, ' 가 검색 되었습니다 ', postDate);
                 tempData.push({
                   title: el.find("title").text(),
                   link: el.find("link").text()
                 });
               } else {
-                return;
+                console.log('다음으로 넘어갑니다 ');
+                return false;
               }
             });
           }
@@ -163,12 +169,13 @@ const NoticeList = ({ isContents = true }: NoticeListProps ) => {
   const checkMsg = (message: MESSAGE_TYPE) => {
     switch (message.type) {
       case "RESPONSE_NOTICE_REFRESH":
-        console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!');
         // 백그라운드에 저장되 있던 임시 데이터를 먼저 받아옴
         noticeListData = message.notice;
+        setNotices(noticeListData);
         followListData = message.following;
         storageRecent = new Date(message.recentAt);
-        setNotices(noticeListData);
+        
+        console.log('검색합니다. ', storageRecent);
 
         // rss 에서 신규 데이터 여부 확인 및 저장
         refreshNotice();
@@ -199,7 +206,7 @@ const NoticeList = ({ isContents = true }: NoticeListProps ) => {
                   </>
               ) : (
                 <>
-                  <button className="btn first-btn" onClick={() => setEditMode(false)}>취소</button>
+                  <button className="btn first-btn" onClick={() => { setEditMode(false); setRemoveList([]); }}>취소</button>
                   <button className="btn" onClick={onRemoveListAll}>모두 삭제</button>
                   <button className="btn danger" onClick={onRemoveList}>삭제</button>
                 </>
