@@ -53,7 +53,7 @@ const createFollowApp = async () => {
   if (urlRegex) {
     ReactDOM.render(<FollowButton targetUser={urlRegex[0]}/>, followApp);
   } else {
-    console.error('[VELOG FOLLOW EXTENSION] : 유저명을 찾을 수 없습니다.');
+    console.log('[VELOG FOLLOW EXTENSION] : 유저명을 찾을 수 없습니다.');
   }
 }
 
