@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "short_name": "Velog 팔로우",
-  "name": "Velog 팔로우",
+  "short_name": "Velog Extension",
+  "name": "Velog Extension",
   "version": "0.1",
   "description": "Velog 에서 팔로우를 관리하고 알림을 받습니다.",
   "icons": {

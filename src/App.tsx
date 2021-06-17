@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
 
-import { NoticeMenu, FollowMenu, SettingMenu } from '@components/Button/Menu/MenuButton';
+import { MainMenu, NoticeMenu, FollowMenu, SettingMenu } from '@components/Button/Menu/MenuButton';
 import Logo from './logo.png';
 
 import { MainDisplay } from '@components/Display/Main/MainDisplay';
@@ -19,6 +19,7 @@ function Layout() {
           <button className="btn" onClick={ () => { window.open("https://velog.io/"); } }>
             <img className="logo" src={Logo} alt="logo"/>
           </button>
+          <MainMenu active={menu=='main'} setMenu={setMenu} to={'main'}></MainMenu>
           <NoticeMenu active={menu=='noticeList'} setMenu={setMenu} to={'noticeList'}></NoticeMenu>
           <FollowMenu active={menu=='followList'} setMenu={setMenu} to={'followList'}></FollowMenu>
           <SettingMenu active={menu=='setting'} setMenu={setMenu} to={'setting'}></SettingMenu>

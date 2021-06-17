@@ -8,7 +8,8 @@
 <br/>
 <p align="center">
   <strong>velog</strong> 확장 프로그램
-<br/>  
+  <br/>  
+  상대방을 팔로우하고 알림을 받아보세요
 </p>
 
 <p align="center">
@@ -39,12 +40,12 @@
 
 ## 설치법
 
-![help1](./README/help1.png)
+<img src="./README/help1.png" width=500 alt="help1"/>
 
-[chrome://extensions/](chrome://extensions/)로 접근하여 개발자 모드로 변경합니다.
+`chrome://extensions/`로 접근하여 개발자 모드로 변경합니다.
 
 
-![help2](./README/help2.png)
+ <img src="./README/help2.png" width=500 alt="help2"/>
 
 `압축해제된 확장 프로그램을 로드합니다`를 클릭합니다.
 
