@@ -33,19 +33,19 @@ const createFollowApp = async () => {
   const followApp = document.createElement("div");
   followApp.id = "v-follow-app"
 
-
-  // 프로필 설명 (이름, 소개말) 공간
-  let profileHeader = document.getElementsByClassName("sc-hZSUBg dBpWKY");
-  if (profileHeader.length == 0)
-    profileHeader = document.getElementsByClassName("sc-kgAjT jTAWUQ");
-  profileHeader[0]?.append(followApp);
+  
+  // 이름 Div 찾기, 부모가 소개말이며 그 부모가 전체 프로필이 됨
+  const nameDiv = document.getElementsByClassName('name')[0];
 
 
   // 이름, 소개말 공간
-  let profileDesc = document.getElementsByClassName("sc-cMhqgX eGVHys");
-  if (profileDesc.length == 0)
-    profileDesc = document.getElementsByClassName("sc-cJSrbW bYKohe");
-  profileDesc[0]?.setAttribute("style", "width: 100%;")
+  let profileDesc = nameDiv?.parentElement;
+  profileDesc?.setAttribute("style", "width: 100%;")
+
+
+  // 프로필 설명 (이름, 소개말) 공간
+  let profileHeader = profileDesc?.parentElement;
+  profileHeader?.append(followApp);
 
 
   // 팔로우 버튼 그려줌
@@ -83,15 +83,20 @@ const createNoticeApp = async () => {
   
   // Navbar 우측 사이드 (프로필 및 아이콘 기능)
   //  - Velog 는 navbar 를 두개 사용함. (고정용 | 스크롤용)
-  const navbarRightSide = document.getElementsByClassName("sc-jKJlTe hoxhZc");
+  let navbarRightSide = document.getElementsByClassName("sc-iwjdpV ajzPu");
+  if (navbarRightSide.length == 0)
+    navbarRightSide = document.getElementsByClassName('sc-iwjdpV gQLlod');
   if (!navbarRightSide) return;
   navbarRightSide[0]?.prepend(noticeApp);   // 고정 navbar
   navbarRightSide[1]?.prepend(navApp);   // 스크롤 했을때 뜨는 navbar
   
-  
+  let isDark = false;
+  if (localStorage.getItem('theme') == '\"dark\"')
+    isDark = true;
+
   // 알림 버튼 그려줌
-  ReactDOM.render(<NoticeButton/>, noticeApp);
-  ReactDOM.render(<TopButton/>, navApp);
+  ReactDOM.render(<NoticeButton darkMode={isDark}/>, noticeApp);
+  ReactDOM.render(<TopButton darkMode={isDark}/>, navApp);
 
 
   // 3초후에 재확인함.

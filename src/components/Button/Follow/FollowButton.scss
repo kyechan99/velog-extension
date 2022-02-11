@@ -24,7 +24,7 @@
   /* 아직 팔로우 중이 아닌 상태 */
   &.follow {
     color: $primary; 
-    background-color: $white;
+    background-color: transparent;
     &:hover {
       color: $primary-hover; 
       background-color: #fcfffe;
